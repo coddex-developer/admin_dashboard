@@ -20,7 +20,7 @@ export default function Dashboard() {
               <FontAwesomeIcon icon={faBoxOpen} size="3x" className="text-primary" />
               <h5 className="card-title mt-3">Meus Produtos</h5>
               <div className="d-flex flex-column">
-                <Link to="/view_products">
+                <Link to="/dashboard/view_categories">
                   <button className="btn btn-outline-primary w-100 mb-2">Ver Produtos</button>
                 </Link>
                 <Link to="/dashboard/new_products">

@@ -15,7 +15,7 @@ export default function Navbar() {
                                 <Link className="nav-link" aria-current="page" to="/dashboard">Home</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/view_products">Meus Produtos</Link>
+                                <Link className="nav-link" to="/dashboard/view_categories">Meus Produtos</Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link" to="/">Sair</Link>
