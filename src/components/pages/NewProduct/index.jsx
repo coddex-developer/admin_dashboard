@@ -66,37 +66,67 @@ export default function NewProduct() {
     }
   }
 
+  async function newProduct(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
+    console.log(data);
+    try {
+      await axios.post("http://localhost:8080/dashboard/new_product", data, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      e.target.reset();
+      toast.success("Produto criado com sucesso!", {
+        position: "top-right",
+        autoClose: 2000,
+        theme: "light",
+        transition: Bounce,
+      });
+    } catch (error) {
+      const message = error.response?.data?.message || error.message;
+      toast.error(`${message}`, {
+        position: "top-right",
+        autoClose: 2000,
+        theme: "light",
+        transition: Bounce,
+      });
+    }
+  }
+
   return (
     <>
       <ToastContainer limit={2} transition={Bounce} />
       <Navbar />
       <div className="container-create-product">
         <div className="new-product-container">
-          <form>
-            <h1>New Product</h1>
-            <select name="category" id="category" required>
-              <option disabled value="">Selecione uma categoria</option>
+          <form onSubmit={newProduct}>
+            <h1>Novo Produto</h1>
+            <select id="categoria" name="categoria" required>
               {categories.map((category) => (
-                <option key={category.id} value={category.id}>{category.nome}</option>
+                <option key={category.id} value={category.nome}>
+                  {category.nome}
+                </option>
               ))}
             </select>
             <input type="url" name="imagem" placeholder="Url da imagem" />
             <input type="text" name="nome" placeholder="Nome do item" />
-            <input type="number" name="preco" placeholder="Price" />
-            <input type="text" name="informacao" placeholder="Description" />
+            <input type="text" name="preco" placeholder="Preço" />
+            <input type="text" name="informacao" placeholder="Descrição" />
             <button className="btn-product" type="submit">Adicionar Item</button>
           </form>
         </div>
 
         <div className="new-category-container">
           <form onSubmit={newCategory}>
-            <h1>New Category</h1>
+            <h1>Nova Categoria</h1>
             <input type="text" name="nome" placeholder="Nome da Categoria" />
             <button className="btn-product" type="submit">Criar Nova Categoria</button>
           </form>
         </div>
 
-      </div>
+      </div >
     </>
   );
 }

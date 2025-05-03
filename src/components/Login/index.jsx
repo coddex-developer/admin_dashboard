@@ -59,7 +59,7 @@ export default function Login() {
             />
             <div className="login-container">
                 <form className="form-login" onSubmit={userLogin}>
-                <h1 className="title-login">Estação Clima</h1>
+                <h1 className="title-login">Admin</h1>
                     <label htmlFor="userAdmin">Username:</label>
                     <input
                         type="text"
