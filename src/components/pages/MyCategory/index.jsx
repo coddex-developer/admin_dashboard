@@ -3,12 +3,14 @@ import { Bounce, toast } from "react-toastify";
 import Navbar from "../../Navbar";
 import { useEffect, useState } from "react";
 import { FaSearch, FaTimes, FaTrash, FaEdit, FaEye } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 export default function MyCategory() {
     const [categories, setCategories] = useState([]);
     const [filtered, setFiltered] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
 
+    // Função para buscar categorias
     async function getCategories() {
         try {
             const response = await axios.get("http://localhost:8080/dashboard/categories", {
@@ -29,6 +31,51 @@ export default function MyCategory() {
             });
         }
     }
+
+    // Função para excluir categorias
+    async function deleteCategories(id) {
+        const confirm = await Swal.fire({
+            title: "Você tem certeza?",
+            text: "Essa ação não poderá ser desfeita e todos os produtos vinculados a esta categoria serão excluídos!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Sim, excluir!",
+            cancelButtonText: "Cancelar",
+        });
+
+        if (confirm.isConfirmed) {
+            try {
+                const response = await axios.delete(`http://localhost:8080/dashboard/delete_category/${id}`, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                });
+
+                if (response.status === 200) {
+                    setCategories(prev => prev.filter(category => category.id !== id));
+                    setFiltered(prev => prev.filter(category => category.id !== id));
+
+                    Swal.fire({
+                        title: "Excluído!",
+                        text: "A categoria foi excluída com sucesso.",
+                        icon: "success",
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+                }
+            } catch (error) {
+                const message = error.response?.data?.message || error.message;
+                toast.error(`${message}`, {
+                    position: "top-right",
+                    autoClose: 2000,
+                    theme: "light",
+                    transition: Bounce,
+                });
+            }
+        }
+    };
 
     useEffect(() => {
         getCategories();
@@ -67,7 +114,7 @@ export default function MyCategory() {
         if (!term) return text;
 
         const regex = new RegExp(`(${term})`, "gi");
-        return text.replace(regex, `<mark style="background-color: #f0f4ff">${term}</mark>`);
+        return text.replace(regex, `<mark style="background-color:rgb(51, 89, 194)">${term}</mark>`);
     };
 
     return (
@@ -124,6 +171,7 @@ export default function MyCategory() {
                                                 Editar Categoria
                                             </button>
                                             <button
+                                                onClick={() => deleteCategories(category.id)}
                                                 className="btn btn-outline-danger"
                                                 title="Atenção: ao excluir esta categoria, todo o conteúdo vinculado poderá ser perdido."
                                             >
