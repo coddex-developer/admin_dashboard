@@ -4,6 +4,7 @@ import Dashboard from "./components/pages/Dashboard";
 import isAuthenticated from "./ProtectedRouter";
 import NewProduct from "./components/pages/NewProduct";
 import MyCategory from "./components/pages/MyCategory";
+import MyProducts from "./components/pages/MyProducts";
 
 const router = createBrowserRouter([
     {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
     {
         path: "/dashboard/view_categories",
         element: isAuthenticated() ? <MyCategory /> : <Navigate to="/" replace />
+    },
+    {
+        path: "/dashboard/view_categories/:id/view_products",
+        element: isAuthenticated() ? <MyProducts /> : <Navigate to="/" replace />
     },
     {
         path: "/dashboard/new_products",

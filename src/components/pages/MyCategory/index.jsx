@@ -4,6 +4,7 @@ import Navbar from "../../Navbar";
 import { useEffect, useState } from "react";
 import { FaSearch, FaTimes, FaTrash, FaEdit, FaEye } from "react-icons/fa";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 export default function MyCategory() {
     const [categories, setCategories] = useState([]);
@@ -162,10 +163,12 @@ export default function MyCategory() {
                                             }}
                                         />
                                         <div className="d-grid gap-2">
-                                            <button className="btn btn-outline-secondary">
-                                                <FaEye className="me-2" />
-                                                Visualizar Produtos
-                                            </button>
+                                            <Link to={`/dashboard/view_categories/${category.id}/view_products`} className="text-decoration-none btn btn-outline-secondary">
+                                                <button className="bg-transparent border-0 gap-2">
+                                                    <FaEye className="me-2" />
+                                                    Visualizar Produtos
+                                                </button>
+                                            </Link>
                                             <button className="btn btn-outline-primary">
                                                 <FaEdit className="me-2" />
                                                 Editar Categoria
