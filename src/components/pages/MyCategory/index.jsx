@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import { FaTrash, FaEdit, FaEye } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
-import MessageError from "../../alerts/MessageError";
 import HandleSearch from "../../Tools/handleSearch";
+import MessageError from "../../alerts/MessageError";
 
 export default function MyCategory() {
     const [searchTerm, setSearchTerm] = useState("");
