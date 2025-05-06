@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Navbar from "../../Navbar";
 import Swal from "sweetalert2";
+import MessageError from "../../alerts/MessageError";
 
 export default function MyProducts() {
     const { id } = useParams();
@@ -21,7 +22,6 @@ export default function MyProducts() {
     }
 
     async function deleteProduct(idDelete) {
-        console.log(idDelete);
         const confirm = await Swal.fire({
             title: "Você tem certeza?",
             text: "Essa ação não poderá ser desfeita!",
@@ -41,12 +41,12 @@ export default function MyProducts() {
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
                     },
                 });
-                console.log(response.data);
+                
                 if (response.status === 200) {
                     setProducts(prev => prev.filter(product => product.id !== idDelete));
                 }
             } catch (error) {
-                alert(error?.response?.data?.message || "Erro ao excluir produto.");
+                MessageError(error.response?.data?.message);
             }
         }
     }

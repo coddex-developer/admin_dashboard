@@ -3,6 +3,7 @@ import "./styles.min.css";
 import Navbar from "../../Navbar";
 import axios from "axios";
 import { Bounce, toast, ToastContainer } from "react-toastify";
+import MessageError from "../../alerts/MessageError";
 
 export default function NewProduct() {
   const [categories, setCategories] = useState([]);
@@ -17,13 +18,7 @@ export default function NewProduct() {
         });
         setCategories(response.data);
       } catch (error) {
-        const message = error.response?.data?.message || error.message;
-        toast.error(`${message}`, {
-          position: "top-right",
-          autoClose: 2000,
-          theme: "light",
-          transition: Bounce,
-        });
+        MessageError(error.response?.data?.message || "Erro ao buscar categorias.");
       }
     }
 
@@ -34,7 +29,6 @@ export default function NewProduct() {
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
-    console.log(data, formData);
     try {
       await axios.post("http://localhost:8080/dashboard/new_category", data, {
         headers: {
@@ -48,7 +42,7 @@ export default function NewProduct() {
         theme: "light",
         transition: Bounce,
       });
-      // Recarrega as categorias
+      
       const updated = await axios.get("http://localhost:8080/dashboard/categories", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -56,13 +50,7 @@ export default function NewProduct() {
       });
       setCategories(updated.data);
     } catch (error) {
-      const message = error.response?.data?.message || error.message;
-      toast.error(`${message}`, {
-        position: "top-right",
-        autoClose: 2000,
-        theme: "light",
-        transition: Bounce,
-      });
+      MessageError(error.response?.data?.message || "Erro ao criar categoria.");
     }
   }
 
@@ -70,7 +58,7 @@ export default function NewProduct() {
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
-    console.log(data);
+    
     try {
       await axios.post("http://localhost:8080/dashboard/new_product", data, {
         headers: {
@@ -85,13 +73,7 @@ export default function NewProduct() {
         transition: Bounce,
       });
     } catch (error) {
-      const message = error.response?.data?.message || error.message;
-      toast.error(`${message}`, {
-        position: "top-right",
-        autoClose: 2000,
-        theme: "light",
-        transition: Bounce,
-      });
+      MessageError(error.response?.data?.message || "Erro ao criar produto.");
     }
   }
 
