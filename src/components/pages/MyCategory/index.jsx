@@ -63,7 +63,7 @@ export default function MyCategory() {
                         text: "A categoria foi excluída com sucesso.",
                         icon: "success",
                         timer: 1500,
-                        showConfirmButton: false
+                        showConfirmButton: true
                     });
                 }
             } catch (error) {

@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Navbar from "../../Navbar";
+import Swal from "sweetalert2";
 
 export default function MyProducts() {
     const { id } = useParams();
@@ -19,13 +20,43 @@ export default function MyProducts() {
         }
     }
 
+    async function deleteProduct(idDelete) {
+        console.log(idDelete);
+        const confirm = await Swal.fire({
+            title: "Você tem certeza?",
+            text: "Essa ação não poderá ser desfeita!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Sim, excluir!",
+            cancelButtonText: "Cancelar",
+        });
+
+        if (confirm.isConfirmed) {
+            
+            try {
+                const response = await axios.delete(`http://localhost:8080/dashboard/view_categories/${id}/view_products/${idDelete}`, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                });
+                console.log(response.data);
+                if (response.status === 200) {
+                    setProducts(prev => prev.filter(product => product.id !== idDelete));
+                }
+            } catch (error) {
+                alert(error?.response?.data?.message || "Erro ao excluir produto.");
+            }
+        }
+    }
+
     useEffect(() => {
         getProducts();
     }, [id]);
-    console.log(products.toLocaleString());
     return (
         <>
-        <Navbar />
+            <Navbar />
             <div className="container py-4">
                 <h1 className="mb-3">Meus Produtos</h1>
                 <p className="text-muted mb-4">Esta página está em construção.</p>
@@ -40,7 +71,7 @@ export default function MyProducts() {
                                     <p className="card-text">Descrição: {product.informacao}</p>
                                     <div className="containerBtn">
                                         <button className="btn btn-primary me-2">Editar</button>
-                                        <button className="btn btn-danger">Excluir</button>
+                                        <button onClick={() => deleteProduct(product.id)} className="btn btn-danger">Excluir</button>
                                     </div>
                                 </div>
                             </div>
