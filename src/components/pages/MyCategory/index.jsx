@@ -77,7 +77,7 @@ export default function MyCategory() {
         if (!term) return text;
 
         const regex = new RegExp(`(${term})`, "gi");
-        return text.replace(regex, match => `<mark style="background-color:rgb(163, 183, 238); color: white;">${match}</mark>`);
+        return text.replace(regex, match => `<mark style="background-color:rgb(178, 193, 233); color: white;">${match}</mark>`);
     };
 
     return (
