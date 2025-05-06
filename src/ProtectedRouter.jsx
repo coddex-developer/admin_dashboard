@@ -1,4 +1,5 @@
 import { jwtDecode } from "jwt-decode";
+import MessageError from "./components/alerts/MessageError";
 
 const isAuthenticated = () => {
     const token = localStorage.getItem("token");
@@ -8,7 +9,7 @@ const isAuthenticated = () => {
         const { exp } = jwtDecode(token);
         return exp * 1000 > Date.now();
     } catch (error) {
-        return false;
+        MessageError(error || "Token inválido ou expirado.");
     }
 };
 

@@ -88,7 +88,7 @@ export default function MyCategory() {
                 <HandleSearch
                     searchTerm={searchTerm}
                     setSearchTerm={setSearchTerm}
-                    categories={categories}
+                    allResponse={categories}
                     setFiltered={setFiltered}
                 />
 

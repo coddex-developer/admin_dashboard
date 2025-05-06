@@ -7,7 +7,7 @@ import MessageError from "../../alerts/MessageError";
 
 export default function NewProduct() {
   const [categories, setCategories] = useState([]);
-
+  
   useEffect(() => {
     async function fetchCategories() {
       try {
@@ -42,7 +42,7 @@ export default function NewProduct() {
         theme: "light",
         transition: Bounce,
       });
-      
+
       const updated = await axios.get("http://localhost:8080/dashboard/categories", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -58,7 +58,7 @@ export default function NewProduct() {
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
-    
+
     try {
       await axios.post("http://localhost:8080/dashboard/new_product", data, {
         headers: {
@@ -79,11 +79,12 @@ export default function NewProduct() {
 
   return (
     <>
-      <ToastContainer limit={2} transition={Bounce} />
+      <ToastContainer />
       <Navbar />
       <div className="container-create-product">
         <div className="new-product-container">
           <form onSubmit={newProduct}>
+            
             <h1>Novo Produto</h1>
             <select id="categoria" name="categoria" required>
               {categories.map((category) => (

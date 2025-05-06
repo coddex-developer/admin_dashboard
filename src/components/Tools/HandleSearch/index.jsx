@@ -1,18 +1,18 @@
 import { FaSearch, FaTimes } from "react-icons/fa";
 import MessageError from "../../alerts/MessageError";
 
-function HandleSearch({ searchTerm, setSearchTerm, categories, setFiltered }) {
+function HandleSearch({ searchTerm, setSearchTerm, allResponse, setFiltered }) {
 
      function handleSearch () {
         const term = searchTerm.trim().toLowerCase();
 
         if (term === "") {
-            setFiltered(categories);
+            setFiltered(allResponse);
             return;
         }
 
-        const result = categories.filter(cat => cat.nome.toLowerCase().includes(term));
-
+        const result = allResponse.filter(cat => cat.nome.toLowerCase().includes(term));
+        console.log(result);
         if (result.length === 0) {
             MessageError("Nenhuma categoria encontrada com esse nome.");
         }
@@ -22,7 +22,7 @@ function HandleSearch({ searchTerm, setSearchTerm, categories, setFiltered }) {
 
     function handleClear () {
         setSearchTerm("");
-        setFiltered(categories);
+        setFiltered(allResponse);
     };
 
     return (

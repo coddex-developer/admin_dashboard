@@ -4,10 +4,14 @@ import { useParams } from "react-router-dom";
 import Navbar from "../../Navbar";
 import Swal from "sweetalert2";
 import MessageError from "../../alerts/MessageError";
+import HandleSearch from "../../Tools/handleSearch";
 
 export default function MyProducts() {
     const { id } = useParams();
     const [products, setProducts] = useState([]);
+    const [filtered, setFiltered] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
+
     async function getProducts() {
         try {
             const response = await axios.get(`http://localhost:8080/dashboard/view_categories/${id}/view_products`, {
@@ -16,6 +20,7 @@ export default function MyProducts() {
                 },
             });
             setProducts(response.data);
+            setFiltered(response.data);
         } catch (error) {
             alert(error?.response?.data?.message || "Erro ao buscar produtos.");
         }
@@ -34,14 +39,14 @@ export default function MyProducts() {
         });
 
         if (confirm.isConfirmed) {
-            
+
             try {
                 const response = await axios.delete(`http://localhost:8080/dashboard/view_categories/${id}/view_products/${idDelete}`, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
                     },
                 });
-                
+
                 if (response.status === 200) {
                     setProducts(prev => prev.filter(product => product.id !== idDelete));
                 }
@@ -54,19 +59,39 @@ export default function MyProducts() {
     useEffect(() => {
         getProducts();
     }, [id]);
+
+    // Destaque do termo pesquisado
+    const highlight = (text) => {
+        const term = searchTerm.trim();
+        if (!term) return text;
+
+        const regex = new RegExp(`(${term})`, "gi");
+        return text.replace(regex, match => `<mark style="background-color:rgb(163, 183, 238); color: white;">${match}</mark>`);
+    };
+
+
     return (
         <>
             <Navbar />
             <div className="container py-4">
+                <HandleSearch
+                    setSearchTerm={setSearchTerm}
+                    searchTerm={searchTerm}
+                    setFiltered={setFiltered}
+                    allResponse={products}
+                />
                 <h1 className="mb-3">Meus Produtos</h1>
                 <p className="text-muted mb-4">Esta página está em construção.</p>
                 <div className="row">
-                    {products.map((product) => (
+                    {filtered.length > 0 ? (filtered.map((product) => (
                         <div className="col-md-4 mb-3" key={product.id}>
                             <div className="card">
                                 <img src={product.imagem} className="card-img-top" alt={product.nome} />
                                 <div className="card-body">
-                                    <h5 className="card-title">{product.nome}</h5>
+                                    <h5
+                                        className="card-title text-center fs-5 mb-4"
+                                        dangerouslySetInnerHTML={{ __html: highlight(product.nome) }}
+                                    />
                                     <p className="card-text">Preço: R$ {product.preco}</p>
                                     <p className="card-text">Descrição: {product.informacao}</p>
                                     <div className="containerBtn">
@@ -76,7 +101,12 @@ export default function MyProducts() {
                                 </div>
                             </div>
                         </div>
-                    ))}
+                    ))
+                    ) : (
+                        <div className="col-12 text-center">
+                            <p className="text-muted">Nenhum produto encontrado.</p>
+                        </div>
+                    )}
                 </div>
             </div>
         </>
