@@ -46,7 +46,7 @@
     color: white;
 }
 
-.new-category-container form input {
+.new-category-container form input, textarea {
     width: 95%;
     padding: 0.5rem;
     border-radius: 5px;

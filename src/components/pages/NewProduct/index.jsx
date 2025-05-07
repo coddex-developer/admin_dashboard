@@ -107,8 +107,8 @@ export default function NewProduct() {
             <input type="text" id="preco" name="preco" placeholder="Preço" />
             
             <label htmlFor="informacao">Descrição:</label>
-            <input type="text" name="informacao" placeholder="Descrição" />
-            
+            <textarea name="informacao" id="informacao" rows="6" placeholder="Descrição"></textarea>
+
             <button className="btn-product" type="submit">Adicionar Item</button>
           </form>
         </div>
