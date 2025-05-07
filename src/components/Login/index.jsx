@@ -68,6 +68,7 @@ export default function Login() {
                         placeholder="Username"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
+                        required
                     />
                     <label htmlFor="password">Password:</label>
                     <input
@@ -77,6 +78,7 @@ export default function Login() {
                         placeholder="Password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        required
                     />
                     <button className="login-button" type="submit">Login</button>
                 </form>

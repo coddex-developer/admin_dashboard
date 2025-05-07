@@ -81,12 +81,13 @@ export default function NewProduct() {
     <>
       <ToastContainer />
       <Navbar />
+      <h1 className="text-center px-2 mt-4 mb-4 fw-bold text-primary">Cadastro de Categorias e Itens</h1>
       <div className="container-create-product">
         <div className="new-product-container">
 
           <form className="formNewProduct" onSubmit={newProduct}>
 
-            <h1>Novo Produto</h1>
+            <h1>Novo Item</h1>
             <label htmlFor="categoria">Categoria:</label>
             <select id="categoria" name="categoria" required>
               {categories.map((category) => (

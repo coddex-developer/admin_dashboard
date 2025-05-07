@@ -98,8 +98,8 @@ export default function MyProducts() {
                                         className="card-title text-center fs-5 mb-4"
                                         dangerouslySetInnerHTML={{ __html: highlight(product.nome) }}
                                     />
-                                    <p className="card-text">Preço: R$ {product.preco}</p>
-                                    <p className="card-text">Descrição: {product.informacao}</p>
+                                    <p className="card-text">R$ {product.preco}</p>
+                                    <p className="card-text">{product.informacao}</p>
                                     <div className="containerBtn">
                                         <button className="btn btn-primary me-2">Editar</button>
                                         <button onClick={() => deleteProduct(product.id)} className="btn btn-danger">Excluir</button>
