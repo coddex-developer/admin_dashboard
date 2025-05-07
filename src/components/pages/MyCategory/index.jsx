@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { FaTrash, FaEdit, FaEye } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
-import HandleSearch from "../../Tools/handleSearch";
+import HandleSearch from "../../Tools/HandleSearch";
 import MessageError from "../../alerts/MessageError";
 
 export default function MyCategory() {
@@ -62,7 +62,7 @@ export default function MyCategory() {
                         text: "A categoria foi excluída com sucesso.",
                         icon: "success",
                         timer: 1500,
-                        showConfirmButton: false
+                        showConfirmButton: true
                     });
                 }
             } catch (error) {

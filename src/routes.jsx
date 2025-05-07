@@ -6,7 +6,7 @@ import NewProduct from "./components/pages/NewProduct";
 import MyCategory from "./components/pages/MyCategory";
 import MyProducts from "./components/pages/MyProducts";
 
-const router = createBrowserRouter([
+const router =  createBrowserRouter([
     {
         path: "/",
         element: <Login />

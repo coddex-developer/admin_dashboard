@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import Navbar from "../../Navbar";
 import Swal from "sweetalert2";
 import MessageError from "../../alerts/MessageError";
-import HandleSearch from "../../Tools/handleSearch";
+import HandleSearch from "../../Tools/HandleSearch";
 
 export default function MyProducts() {
     const { id } = useParams();
@@ -49,6 +49,13 @@ export default function MyProducts() {
 
                 if (response.status === 200) {
                     setProducts(prev => prev.filter(product => product.id !== idDelete));
+                    setFiltered(prev => prev.filter(product => product.id !== idDelete));
+                    Swal.fire({
+                        icon: "success",
+                        title: "Produto excluído com sucesso!",
+                        showConfirmButton: true,
+                        timer: 1500,
+                    });
                 }
             } catch (error) {
                 MessageError(error.response?.data?.message);
