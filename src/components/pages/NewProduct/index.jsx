@@ -7,7 +7,7 @@ import MessageError from "../../alerts/MessageError";
 
 export default function NewProduct() {
   const [categories, setCategories] = useState([]);
-  
+
   useEffect(() => {
     async function fetchCategories() {
       try {
@@ -83,9 +83,11 @@ export default function NewProduct() {
       <Navbar />
       <div className="container-create-product">
         <div className="new-product-container">
-          <form onSubmit={newProduct}>
-            
+
+          <form className="formNewProduct" onSubmit={newProduct}>
+
             <h1>Novo Produto</h1>
+            <label htmlFor="categoria">Categoria:</label>
             <select id="categoria" name="categoria" required>
               {categories.map((category) => (
                 <option key={category.id} value={category.nome}>
@@ -93,18 +95,28 @@ export default function NewProduct() {
                 </option>
               ))}
             </select>
-            <input type="url" name="imagem" placeholder="Url da imagem" />
-            <input type="text" name="nome" placeholder="Nome do item" />
-            <input type="text" name="preco" placeholder="Preço" />
+
+            <label htmlFor="imagem">Url da imagem:</label>
+            <input type="url" id="imagem" name="imagem" placeholder="Url da imagem" />
+            
+            <label htmlFor="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" placeholder="Nome do item" />
+            
+            <label htmlFor="preco">Preço:</label>
+            <input type="text" id="preco" name="preco" placeholder="Preço" />
+            
+            <label htmlFor="informacao">Descrição:</label>
             <input type="text" name="informacao" placeholder="Descrição" />
+            
             <button className="btn-product" type="submit">Adicionar Item</button>
           </form>
         </div>
 
         <div className="new-category-container">
-          <form onSubmit={newCategory}>
+          <form className="formNewCategory" onSubmit={newCategory}>
             <h1>Nova Categoria</h1>
-            <input type="text" name="nome" placeholder="Nome da Categoria" />
+            <label htmlFor="categoryName">Nome da categoria:</label>
+            <input type="text" id="categoryName" name="nome" placeholder="Nome da Categoria" />
             <button className="btn-product" type="submit">Criar Nova Categoria</button>
           </form>
         </div>

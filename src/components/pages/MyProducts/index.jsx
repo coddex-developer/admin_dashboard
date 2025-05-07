@@ -87,8 +87,7 @@ export default function MyProducts() {
                     setFiltered={setFiltered}
                     allResponse={products}
                 />
-                <h1 className="mb-3">Meus Produtos</h1>
-                <p className="text-muted mb-4">Esta página está em construção.</p>
+                <h1 className="text-center mb-4 fw-bold text-primary">Meus Produtos</h1>
                 <div className="row">
                     {filtered.length > 0 ? (filtered.map((product) => (
                         <div className="col-md-4 mb-3" key={product.id}>

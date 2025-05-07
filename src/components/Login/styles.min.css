@@ -48,12 +48,12 @@ body {
     transform: translate(-50%, -50%);
 }
 
-label {
+.form-login label {
     margin-bottom: -1rem;
     color: #fff;
 }
 
-input[type="text"], input[type="password"] {
+.form-login input[type="text"], input[type="password"] {
     padding: 5px;
     border: 0;
     border-radius: 8px;

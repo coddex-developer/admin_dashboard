@@ -21,9 +21,15 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
     gap: 1rem;
-    padding: 5rem 0;
+    padding: 4rem 2rem;
+}
+
+.formNewCategory label, .formNewProduct label {
+    font-size: .99rem;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: -14px;
 }
 
 .new-product-container form input, select, .btn-product {

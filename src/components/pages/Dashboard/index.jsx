@@ -21,10 +21,10 @@ export default function Dashboard() {
               <h5 className="card-title mt-3">Meus Produtos</h5>
               <div className="d-flex flex-column">
                 <Link to="/dashboard/view_categories">
-                  <button className="btn btn-outline-primary w-100 mb-2">Ver Produtos</button>
+                  <button className="btn btn-outline-primary w-100 mb-2">Ver Categorias</button>
                 </Link>
                 <Link to="/dashboard/new_products">
-                  <button className="btn btn-outline-success w-100">Criar Produto</button>
+                  <button className="btn btn-outline-success w-100">Adicionar Produto</button>
                 </Link>
               </div>
             </div>
