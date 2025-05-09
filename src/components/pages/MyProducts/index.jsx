@@ -50,6 +50,7 @@ export default function MyProducts() {
                 if (response.status === 200) {
                     setProducts(prev => prev.filter(product => product.id !== idDelete));
                     setFiltered(prev => prev.filter(product => product.id !== idDelete));
+
                     Swal.fire({
                         icon: "success",
                         title: "Produto excluído com sucesso!",
@@ -99,6 +100,7 @@ export default function MyProducts() {
                                         dangerouslySetInnerHTML={{ __html: highlight(product.nome) }}
                                     />
                                     <p className="card-text">R$ {product.preco}</p>
+                                    <p className="card-text">Categoria: {product.categoria}</p>
                                     <p className="card-text">{product.informacao}</p>
                                     <div className="containerBtn">
                                         <button className="btn btn-primary me-2">Editar</button>

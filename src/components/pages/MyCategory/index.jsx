@@ -71,6 +71,73 @@ export default function MyCategory() {
         }
     }
 
+    function renameCategory(id) {
+        Swal.fire({
+            title: "Renomear Categoria",
+            input: "text",
+            inputLabel: "Novo nome",
+            showCancelButton: true,
+            confirmButtonText: "Salvar",
+            cancelButtonText: "Cancelar",
+            preConfirm: (newName) => {
+                if (!newName) {
+                    Swal.showValidationMessage("Por favor, insira um novo nome.");
+                } else {
+                    return newName;
+                }
+            },
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Aqui você pode fazer a chamada para renomear a categoria
+                console.log(`Renomear categoria ${id} para ${result.value}`);
+            }
+        });
+    }
+
+    // Filtrar categorias com base no termo de pesquisa
+    async function editCategory(id) {
+        const { value: newName } = await Swal.fire({
+            title: "Renomear Categoria",
+            input: "text",
+            inputLabel: "Novo nome",
+            showCancelButton: true,
+            confirmButtonText: "Salvar",
+            cancelButtonText: "Cancelar",
+            preConfirm: (newName) => {
+                if (!newName) {
+                    Swal.showValidationMessage("Por favor, insira um novo nome.");
+                } else {
+                    return newName;
+                }
+            },
+        });
+
+        if (newName) {
+            try {
+                const response = await axios.put(`http://localhost:8080/dashboard/edit_category/${id}`, { categoria: newName }, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                });
+
+                if (response.status === 200) {
+                    setCategories(prev => prev.map(category => category.id === id ? { ...category, nome: newName } : category));
+                    setFiltered(prev => prev.map(category => category.id === id ? { ...category, nome: newName } : category));
+
+                    Swal.fire({
+                        title: "Renomeado!",
+                        text: "A categoria foi renomeada com sucesso.",
+                        icon: "success",
+                        timer: 1500,
+                        showConfirmButton: true
+                    });
+                }
+            } catch (error) {
+                MessageError(error.response?.data?.message || "Erro ao renomear categoria.");
+            }
+        }
+    }
+
     // Destaque do termo pesquisado
     const highlight = (text) => {
         const term = searchTerm.trim();
@@ -117,7 +184,7 @@ export default function MyCategory() {
                                                 <FaEye /> Visualizar Produtos
                                             </Link>
 
-                                            <button className="btn btn-outline-primary d-flex align-items-center justify-content-center gap-2">
+                                            <button className="btn btn-outline-primary d-flex align-items-center justify-content-center gap-2" onClick={() => editCategory(category.id)}>
                                                 <FaEdit /> Editar Categoria
                                             </button>
 
