@@ -47,7 +47,7 @@ export default function Login() {
         <>
             <ToastContainer
                 position="top-right"
-                autoClose={2000}
+                autoClose={5000}
                 hideProgressBar={false}
                 newestOnTop={false}
                 closeOnClick={false}
@@ -56,13 +56,11 @@ export default function Login() {
                 draggable
                 pauseOnHover
                 theme="light"
-                limit={2}
                 transition={Bounce}
-                stacked 
             />
             <div className="login-container">
                 <form className="form-login" onSubmit={userLogin}>
-                <h1 className="title-login">Admin</h1>
+                    <h1 className="title-login">Admin</h1>
                     <label htmlFor="userAdmin">Username:</label>
                     <input
                         type="text"
