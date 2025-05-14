@@ -18,7 +18,7 @@ export default function EditProduct() {
                     <input type="text" name="preco" id="preco" placeholder="Preço $" />
                     
                     <label htmlFor="descricao">Descrição:</label>
-                    <textarea name="descricao" id="descricao" placeholder="Descrição..."></textarea>
+                    <textarea className="textDescription" name="descricao" id="descricao" placeholder="Descrição..."></textarea>
                     <button type="submit">Atualizar</button>
                 </form>
             </div>

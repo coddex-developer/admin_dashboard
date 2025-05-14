@@ -5,7 +5,8 @@ import isAuthenticated from "./ProtectedRouter";
 import NewProduct from "./components/pages/NewProduct";
 import MyCategory from "./components/pages/MyCategory";
 import MyProducts from "./components/pages/MyProducts";
-import EditProduct from "./components/pages/editProduct";
+import EditProduct from "./components/pages/EditProduct";
+;
 
 
 const router =  createBrowserRouter([
