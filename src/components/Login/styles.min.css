@@ -37,11 +37,12 @@ body {
     flex-direction: column;
     gap: 20px;
     padding: 4rem 2rem;
-    border-radius: 8px;
+    border-radius: 30px;
     background-color: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(10, 10, 10, 0.5);
-    width: 90%;
+    width: 100%;
+    max-width: 450px;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -54,45 +55,34 @@ body {
 }
 
 .form-login input[type="text"], input[type="password"] {
-    padding: 5px;
+    padding: 10px;
     border: 0;
-    border-radius: 8px;
-    height: 40px;
+    font-size: 14pt;
+    border-radius: 100px;
+    height: 53px;
     border: 1px solid #ccc;
+    width: 100%;
 }
 
 .login-button {
-    border-radius: 8px;
-    height: 40px;
+    border-radius: 100px;
+    height: 53px;
     padding: 10px;
     border: 0;
-    background-color: #007bff;
+    font-size: 16pt;
+    background-color: dodgerblue;
     color: white;
     cursor: pointer;
-    border-radius: 5px;
-}  
+    width: 100%;
+} 
 
-@media screen and (max-width: 350px) {
-    .form-login {
-        width: 100%;
-        min-width: 350px;
-        padding: 4.5rem 1rem;
-    }
-    .title-login {
-        font-size: 1.7rem;
-    }
+.login-button:hover {
+    background-color: rgb(30, 128, 225);
 }
 
-@media screen and (max-width: 320px) {
-    form {
-        width: 100%;
-        min-width: 300px;
-        padding: 4rem 1rem;
-    }
-}
 
-@media screen and (min-width: 768px) {
+@media screen and (max-width: 460px) {
     .form-login {
-        width: 450px;
-    }
+       max-width: 95%;
+    }   
 }
