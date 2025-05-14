@@ -4,6 +4,7 @@ import Navbar from "../../Navbar";
 import axios from "axios";
 import { Bounce, toast, ToastContainer } from "react-toastify";
 import MessageError from "../../alerts/MessageError";
+import urlServer from "../../../../public/urlServer";
 
 export default function NewProduct() {
   const [categories, setCategories] = useState([]);
@@ -11,7 +12,7 @@ export default function NewProduct() {
   useEffect(() => {
     async function fetchCategories() {
       try {
-        const response = await axios.get("http://localhost:8080/dashboard/categories", {
+        const response = await axios.get(`${urlServer}/dashboard/categories`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -30,7 +31,7 @@ export default function NewProduct() {
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
     try {
-      await axios.post("http://localhost:8080/dashboard/new_category", data, {
+      await axios.post(`${urlServer}/dashboard/new_category`, data, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -43,7 +44,7 @@ export default function NewProduct() {
         transition: Bounce,
       });
 
-      const updated = await axios.get("http://localhost:8080/dashboard/categories", {
+      const updated = await axios.get(`${urlServer}/dashboard/categories`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -60,7 +61,7 @@ export default function NewProduct() {
     const data = Object.fromEntries(formData.entries());
 
     try {
-      await axios.post("http://localhost:8080/dashboard/new_product", data, {
+      await axios.post(`${urlServer}/dashboard/new_product`, data, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -99,13 +100,13 @@ export default function NewProduct() {
 
             <label htmlFor="imagem">Url da imagem:</label>
             <input type="url" id="imagem" name="imagem" placeholder="Url da imagem" />
-            
+
             <label htmlFor="nome">Nome:</label>
             <input type="text" id="nome" name="nome" placeholder="Nome do item" />
-            
+
             <label htmlFor="preco">Preço:</label>
             <input type="text" id="preco" name="preco" placeholder="Preço" />
-            
+
             <label htmlFor="informacao">Descrição:</label>
             <textarea name="informacao" id="informacao" rows="6" placeholder="Descrição"></textarea>
 

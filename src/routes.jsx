@@ -5,6 +5,8 @@ import isAuthenticated from "./ProtectedRouter";
 import NewProduct from "./components/pages/NewProduct";
 import MyCategory from "./components/pages/MyCategory";
 import MyProducts from "./components/pages/MyProducts";
+import EditProduct from "./components/pages/editProduct";
+
 
 const router =  createBrowserRouter([
     {
@@ -20,8 +22,12 @@ const router =  createBrowserRouter([
         element: isAuthenticated() ? <MyCategory /> : <Navigate to="/" replace />
     },
     {
-        path: "/dashboard/view_categories/:id/view_products",
+        path: "/dashboard/view_categories/:id",
         element: isAuthenticated() ? <MyProducts /> : <Navigate to="/" replace />
+    },
+    {
+        path: "/dashboard/new_category/:id/:idProduct/update_product",
+        element: isAuthenticated() ? <EditProduct /> : <Navigate to="/" replace />
     },
     {
         path: "/dashboard/new_products",

@@ -5,6 +5,7 @@ import Navbar from "../../Navbar";
 import Swal from "sweetalert2";
 import MessageError from "../../alerts/MessageError";
 import HandleSearch from "../../Tools/HandleSearch";
+import urlServer from "../../../../public/urlServer";
 
 export default function MyProducts() {
     const { id } = useParams();
@@ -12,9 +13,10 @@ export default function MyProducts() {
     const [filtered, setFiltered] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
 
+    // Função para buscar os produtos
     async function getProducts() {
         try {
-            const response = await axios.get(`http://localhost:8080/dashboard/view_categories/${id}/view_products`, {
+            const response = await axios.get(`${urlServer}/dashboard/view_categories/${id}`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
@@ -22,10 +24,11 @@ export default function MyProducts() {
             setProducts(response.data);
             setFiltered(response.data);
         } catch (error) {
-            alert(error?.response?.data?.message || "Erro ao buscar produtos.");
+            MessageError(error?.response?.data?.message || "Erro ao buscar produtos.");
         }
     }
 
+    // Função para excluir o produto
     async function deleteProduct(idDelete) {
         const confirm = await Swal.fire({
             title: "Você tem certeza?",
@@ -41,7 +44,7 @@ export default function MyProducts() {
         if (confirm.isConfirmed) {
 
             try {
-                const response = await axios.delete(`http://localhost:8080/dashboard/view_categories/${id}/view_products/${idDelete}`, {
+                const response = await axios.delete(`${urlServer}/dashboard/view_categories/${id}/${idDelete}`, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
                     },
@@ -62,6 +65,12 @@ export default function MyProducts() {
                 MessageError(error.response?.data?.message);
             }
         }
+    }
+
+    // Função para editar o produto
+    // Redireciona para a página de edição do produto
+    async function editProduct(idEditProduct) {
+        window.location.href = `/dashboard/new_category/${id}/${idEditProduct}/update_product`;
     }
 
     useEffect(() => {
@@ -103,7 +112,7 @@ export default function MyProducts() {
                                     <p className="card-text">Categoria: {product.categoria}</p>
                                     <p className="card-text">{product.informacao}</p>
                                     <div className="containerBtn">
-                                        <button className="btn btn-primary me-2">Editar</button>
+                                        <button onClick={() => editProduct(product.id)} className="btn btn-primary me-2">Editar</button>
                                         <button onClick={() => deleteProduct(product.id)} className="btn btn-danger">Excluir</button>
                                     </div>
                                 </div>

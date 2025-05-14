@@ -6,12 +6,13 @@ import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import HandleSearch from "../../Tools/HandleSearch";
 import MessageError from "../../alerts/MessageError";
+import urlServer from "../../../../public/urlServer";
 
 export default function MyCategory() {
     const [searchTerm, setSearchTerm] = useState("");
     const [filtered, setFiltered] = useState([]);
     const [categories, setCategories] = useState([]);
-
+    
     // Buscar categorias no carregamento
     useEffect(() => {
         getCategories();
@@ -19,7 +20,7 @@ export default function MyCategory() {
 
     async function getCategories() {
         try {
-            const response = await axios.get("http://localhost:8080/dashboard/categories", {
+            const response = await axios.get(`${urlServer}/dashboard/categories`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
@@ -47,7 +48,7 @@ export default function MyCategory() {
 
         if (confirm.isConfirmed) {
             try {
-                const response = await axios.delete(`http://localhost:8080/dashboard/delete_category/${id}`, {
+                const response = await axios.delete(`${urlServer}/dashboard/delete_category/${id}`, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
                     },
@@ -71,28 +72,6 @@ export default function MyCategory() {
         }
     }
 
-    function renameCategory(id) {
-        Swal.fire({
-            title: "Renomear Categoria",
-            input: "text",
-            inputLabel: "Novo nome",
-            showCancelButton: true,
-            confirmButtonText: "Salvar",
-            cancelButtonText: "Cancelar",
-            preConfirm: (newName) => {
-                if (!newName) {
-                    Swal.showValidationMessage("Por favor, insira um novo nome.");
-                } else {
-                    return newName;
-                }
-            },
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Aqui você pode fazer a chamada para renomear a categoria
-                console.log(`Renomear categoria ${id} para ${result.value}`);
-            }
-        });
-    }
 
     // Filtrar categorias com base no termo de pesquisa
     async function editCategory(id) {
@@ -114,7 +93,7 @@ export default function MyCategory() {
 
         if (newName) {
             try {
-                const response = await axios.put(`http://localhost:8080/dashboard/edit_category/${id}`, { categoria: newName }, {
+                const response = await axios.put(`${urlServer}/dashboard/edit_category/${id}`, { categoria: newName }, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
                     },
@@ -178,7 +157,7 @@ export default function MyCategory() {
 
                                         <div className="d-grid gap-2">
                                             <Link
-                                                to={`/dashboard/view_categories/${category.id}/view_products`}
+                                                to={`/dashboard/view_categories/${category.id}`}
                                                 className="btn btn-outline-secondary d-flex align-items-center justify-content-center gap-2"
                                             >
                                                 <FaEye /> Visualizar Produtos

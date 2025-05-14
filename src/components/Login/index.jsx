@@ -2,6 +2,9 @@ import { useState } from "react";
 import "./styles.min.css";
 import axios from "axios";
 import { Bounce, toast, ToastContainer } from "react-toastify";
+import urlServer from "../../../public/urlServer";
+
+
 
 export default function Login() {
     const [username, setUsername] = useState("");
@@ -10,7 +13,7 @@ export default function Login() {
     async function userLogin(e) {
         e.preventDefault();
         try {
-            const response = await axios.post("http://localhost:8080/login", {
+            const response = await axios.post(`${urlServer}/login`, {
                 userAdmin: username,
                 password: password
             });
