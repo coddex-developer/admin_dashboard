@@ -5,12 +5,14 @@
     height: 100vh;
 }
 
-.new-product-container, .new-category-container {
+.new-product-container,
+.new-category-container {
     background-color: #f4f7fc;
     padding: 1rem;
 }
 
-.new-product-container form, .new-category-container form  {
+.new-product-container form,
+.new-category-container form {
     background-color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
@@ -25,7 +27,8 @@
     padding: 4rem 2rem;
 }
 
-.formNewCategory label, .formNewProduct label {
+.formNewCategory label,
+.formNewProduct label {
     font-size: .99rem;
     font-weight: 500;
     color: #333;
@@ -34,12 +37,15 @@
 
 
 
-.new-product-container form input, select,  .new-category-container form input {
+.new-product-container form input,
+select,
+.new-category-container form input {
     height: 53px;
     font-size: 14pt;
     padding: 10px;
     border-radius: 100px;
     border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
 }
 
 .new-product-container .formNewProduct textarea {
@@ -73,6 +79,5 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
     }
-    
-}
 
+}
