@@ -27,7 +27,7 @@ const router =  createBrowserRouter([
         element: isAuthenticated() ? <MyProducts /> : <Navigate to="/" replace />
     },
     {
-        path: "/dashboard/new_category/:id/:idProduct/update_product",
+        path: "/dashboard/view_categories/:id/:idProduct",
         element: isAuthenticated() ? <EditProduct /> : <Navigate to="/" replace />
     },
     {

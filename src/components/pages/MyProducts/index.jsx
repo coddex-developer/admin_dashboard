@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Navbar from "../../Navbar";
 import Swal from "sweetalert2";
 import MessageError from "../../alerts/MessageError";
@@ -12,6 +12,7 @@ export default function MyProducts() {
     const [products, setProducts] = useState([]);
     const [filtered, setFiltered] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
+    const navigate = useNavigate();
 
     // Função para buscar os produtos
     async function getProducts() {
@@ -67,12 +68,6 @@ export default function MyProducts() {
         }
     }
 
-    // Função para editar o produto
-    // Redireciona para a página de edição do produto
-    async function editProduct(idEditProduct) {
-        window.location.href = `/dashboard/new_category/${id}/${idEditProduct}/update_product`;
-    }
-
     useEffect(() => {
         getProducts();
     }, [id]);
@@ -112,7 +107,9 @@ export default function MyProducts() {
                                     <p className="card-text">Categoria: {product.categoria}</p>
                                     <p className="card-text">{product.informacao}</p>
                                     <div className="containerBtn">
-                                        <button onClick={() => editProduct(product.id)} className="btn btn-primary me-2">Editar</button>
+                                        <Link to={`/dashboard/view_categories/${id}/${product.id}`}>
+                                            <button className="btn btn-primary">Editar</button>
+                                        </Link>
                                         <button onClick={() => deleteProduct(product.id)} className="btn btn-danger">Excluir</button>
                                     </div>
                                 </div>

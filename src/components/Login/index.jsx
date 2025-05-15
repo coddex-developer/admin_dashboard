@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./styles.min.css";
 import axios from "axios";
 import { Bounce, toast, ToastContainer } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import urlServer from "../../../public/urlServer";
 
 
@@ -9,7 +10,7 @@ import urlServer from "../../../public/urlServer";
 export default function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-
+    const navigate = useNavigate();
     async function userLogin(e) {
         e.preventDefault();
         try {
@@ -20,7 +21,7 @@ export default function Login() {
 
             if (response.status === 200) {
                 localStorage.setItem("token", response.data.token);
-                window.location.href = "/dashboard";
+                navigate("/dashboard");
             }
 
         } catch (error) {
