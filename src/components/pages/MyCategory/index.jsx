@@ -11,9 +11,7 @@ import urlServer from "../../../../public/urlServer";
 export default function MyCategory() {
     const [searchTerm, setSearchTerm] = useState("");
     const [filtered, setFiltered] = useState([]);
-    const [categories, 
-        
-    ] = useState([]);
+    const [categories, setCategories] = useState([]);
     
     // Buscar categorias no carregamento
     useEffect(() => {
