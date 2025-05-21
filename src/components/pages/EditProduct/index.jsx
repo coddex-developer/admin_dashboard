@@ -10,26 +10,33 @@ import Swal from "sweetalert2";
 export default function EditProduct() {
     const { id, idProduct } = useParams();
     const navigate = useNavigate();
+
     const [editProduct, setEditProduct] = useState({
         imagem: "",
         nome: "",
         preco: "",
-        informacao: ""
+        informacao: "",
     });
+
+    const productSelected = async () => {
+        try {
+            const response = await axios.get(`${urlServer}/dashboard/view_categories/${id}/${idProduct}`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            });
+            return response.data;
+        } catch (error) {
+            MessageError(error.response?.data?.message || "Erro ao buscar produto.");
+            return null;
+        }
+    };
 
     useEffect(() => {
         async function fetchProduct() {
-            try {
-                const response = await axios.get(`${urlServer}/dashboard/view_categories/${id}/${idProduct}`, {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem("token")}`,
-                    },
-                });
-                const productFound = response.data.find(p => p.id === idProduct);
-                console.log(productFound);
-                setEditProduct(productFound);
-            } catch (error) {
-                MessageError(error.response?.data?.message || "Erro ao buscar produto.");
+            const product = await productSelected();
+            if (product) {
+                setEditProduct(product);
             }
         }
 
@@ -49,16 +56,15 @@ export default function EditProduct() {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
             });
-           Swal.fire({
+            Swal.fire({
                 icon: "success",
                 title: "Produto atualizado com sucesso!",
                 showConfirmButton: false,
                 timer: 1500,
             });
             setTimeout(() => {
-                 navigate(`/dashboard/view_categories/${id}`);
+                navigate(`/dashboard/view_categories/${id}`);
             }, 2000);
-
         } catch (error) {
             MessageError(error.response?.data?.message || "Erro ao atualizar o produto.");
         }
@@ -76,7 +82,7 @@ export default function EditProduct() {
                         type="text"
                         id="imagem"
                         placeholder="Url da Imagem"
-                        value={editProduct.imagem}
+                        value={editProduct.imagem || ""}
                         onChange={handleChange}
                     />
 
@@ -85,7 +91,7 @@ export default function EditProduct() {
                         type="text"
                         id="nome"
                         placeholder="Título"
-                        value={editProduct.nome}
+                        value={editProduct.nome || ""}
                         onChange={handleChange}
                     />
 
@@ -94,7 +100,7 @@ export default function EditProduct() {
                         type="text"
                         id="preco"
                         placeholder="Preço $"
-                        value={editProduct.preco}
+                        value={editProduct.preco || ""}
                         onChange={handleChange}
                     />
 
@@ -103,7 +109,7 @@ export default function EditProduct() {
                         className="textDescription"
                         id="informacao"
                         placeholder="Descrição..."
-                        value={editProduct.informacao}
+                        value={editProduct.informacao || ""}
                         onChange={handleChange}
                     ></textarea>
 

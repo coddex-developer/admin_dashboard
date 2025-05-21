@@ -11,7 +11,9 @@ import urlServer from "../../../../public/urlServer";
 export default function MyCategory() {
     const [searchTerm, setSearchTerm] = useState("");
     const [filtered, setFiltered] = useState([]);
-    const [categories, setCategories] = useState([]);
+    const [categories, 
+        
+    ] = useState([]);
     
     // Buscar categorias no carregamento
     useEffect(() => {
@@ -78,6 +80,7 @@ export default function MyCategory() {
         const { value: newName } = await Swal.fire({
             title: "Renomear Categoria",
             input: "text",
+            inputValue: categories.find(category => category.id === id)?.nome || "",
             inputLabel: "Novo nome",
             showCancelButton: true,
             confirmButtonText: "Salvar",

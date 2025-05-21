@@ -21,7 +21,7 @@ export default function Login() {
 
             if (response.status === 200) {
                 localStorage.setItem("token", response.data.token);
-                navigate("/dashboard");
+                window.location.href = "/dashboard";
             }
 
         } catch (error) {
