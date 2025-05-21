@@ -60,11 +60,11 @@ export default function EditProduct() {
                 icon: "success",
                 title: "Produto atualizado com sucesso!",
                 showConfirmButton: false,
-                timer: 1500,
+                timer: 600,
             });
             setTimeout(() => {
                 navigate(`/dashboard/view_categories/${id}`);
-            }, 2000);
+            }, 700);
         } catch (error) {
             MessageError(error.response?.data?.message || "Erro ao atualizar o produto.");
         }
