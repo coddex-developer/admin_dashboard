@@ -8,6 +8,8 @@ import urlServer from "../../../../public/urlServer";
 
 export default function NewProduct() {
   const [categories, setCategories] = useState([]);
+  const [descricao, setDescricao] = useState("");
+  const limiteDescricao = 500;
 
   useEffect(() => {
     async function fetchCategories() {
@@ -67,6 +69,7 @@ export default function NewProduct() {
         },
       });
       e.target.reset();
+      setDescricao(""); // Limpa o campo descrição controlado
       toast.success("Produto criado com sucesso!", {
         position: "top-right",
         autoClose: 2000,
@@ -107,8 +110,21 @@ export default function NewProduct() {
             <label htmlFor="preco">Preço:</label>
             <input type="text" id="preco" name="preco" placeholder="Preço" />
 
-            <label htmlFor="informacao">Descrição:</label>
-            <textarea name="informacao" id="informacao" rows="6" placeholder="Descrição"></textarea>
+            <label htmlFor="informacao">
+              Descrição:{" "}
+              <span style={{ fontWeight: "normal", fontSize: "0.9rem" }}>
+                ({descricao.length} / {limiteDescricao})
+              </span>
+            </label>
+            <textarea
+              maxLength={limiteDescricao}
+              name="informacao"
+              id="informacao"
+              rows="6"
+              placeholder="Descrição"
+              value={descricao}
+              onChange={(e) => setDescricao(e.target.value)}
+            />
 
             <button className="btn-product" type="submit">Adicionar Item</button>
           </form>
@@ -122,8 +138,7 @@ export default function NewProduct() {
             <button className="btn-product" type="submit">Criar Nova Categoria</button>
           </form>
         </div>
-
-      </div >
+      </div>
     </>
   );
 }
