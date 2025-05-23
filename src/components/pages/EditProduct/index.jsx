@@ -74,7 +74,7 @@ export default function EditProduct() {
         <>
             <Navbar />
             <div className="containerEditProduct">
-                <form onSubmit={handleSubmit}>
+                <form className="formEditProduct" onSubmit={handleSubmit}>
                     <h1>Atualizar Produto</h1>
 
                     <label htmlFor="imagem">Url da Imagem:</label>

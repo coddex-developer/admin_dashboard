@@ -6,13 +6,13 @@ import Swal from "sweetalert2";
 import MessageError from "../../alerts/MessageError";
 import HandleSearch from "../../Tools/HandleSearch";
 import urlServer from "../../../../public/urlServer";
+import "./styles.min.css";
 
 export default function MyProducts() {
     const { id } = useParams();
     const [products, setProducts] = useState([]);
     const [filtered, setFiltered] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
-    const navigate = useNavigate();
 
     // Função para buscar os produtos
     async function getProducts() {
@@ -93,9 +93,9 @@ export default function MyProducts() {
                     allResponse={products}
                 />
                 <h1 className="text-center mb-4 fw-bold text-primary">Meus Produtos</h1>
-                <div className="row">
+                <div className="containerCards">
                     {filtered.length > 0 ? (filtered.map((product) => (
-                        <div className="col-md-4 mb-3" key={product.id}>
+                        <div className="cardsProducts" key={product.id}>
                             <div className="card">
                                 <img src={product.imagem} className="card-img-top" alt={product.nome} />
                                 <div className="card-body">
