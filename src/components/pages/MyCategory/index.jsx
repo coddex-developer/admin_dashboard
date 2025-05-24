@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import HandleSearch from "../../Tools/HandleSearch";
 import MessageError from "../../alerts/MessageError";
 import urlServer from "../../../../public/urlServer";
+import "./styles.min.css";
 
 export default function MyCategory() {
     const [searchTerm, setSearchTerm] = useState("");
@@ -142,12 +143,12 @@ export default function MyCategory() {
                 <h1 className="text-center mb-4 fw-bold text-primary">Minhas Categorias</h1>
 
                 {/* Lista */}
-                <div className="row g-4">
+                <div className="containerCategory">
                     {filtered.length > 0 ? (
                         filtered.map((category) => (
                             <div key={category.id} className="col-12 col-sm-6 col-md-4">
                                 <div
-                                    className="card h-100 shadow-sm border-0 rounded-4"
+                                    className="cardCategory"
                                     title={category.descricao || "Categoria sem descrição"}
                                 >
                                     <div className="card-body d-flex flex-column justify-content-between">
@@ -159,18 +160,18 @@ export default function MyCategory() {
                                         <div className="d-grid gap-2">
                                             <Link
                                                 to={`/dashboard/view_categories/${category.id}`}
-                                                className="btn btn-outline-secondary d-flex align-items-center justify-content-center gap-2"
+                                                className="btn btnCategoryFunctios btn-outline-secondary d-flex align-items-center justify-content-center gap-2"
                                             >
                                                 <FaEye /> Visualizar Produtos
                                             </Link>
 
-                                            <button className="btn btn-outline-primary d-flex align-items-center justify-content-center gap-2" onClick={() => editCategory(category.id)}>
+                                            <button className="btn btnCategoryFunctios btn-outline-primary d-flex align-items-center justify-content-center gap-2" onClick={() => editCategory(category.id)}>
                                                 <FaEdit /> Editar Categoria
                                             </button>
 
                                             <button
                                                 onClick={() => deleteCategories(category.id)}
-                                                className="btn btn-outline-danger d-flex align-items-center justify-content-center gap-2"
+                                                className="btn btnCategoryFunctios btn-outline-danger d-flex align-items-center justify-content-center gap-2"
                                                 title="Atenção: ao excluir esta categoria, todo o conteúdo vinculado poderá ser perdido."
                                             >
                                                 <FaTrash /> Excluir Categoria

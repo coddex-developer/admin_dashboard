@@ -12,7 +12,7 @@
 }
 
 .cardsProducts .card {
-    background-color: #e5e5e5 !important;
+    background-color: #f1f1f1 !important;
     border-radius: 30px;
     min-width: 350px;
 }
@@ -30,7 +30,7 @@
 }
 
 .cardsProducts .card button {
-    background-color: #fff;
+    background-color: #f1f1f1;
     color: #292929;
     border-radius: 20px;
     font-weight: 500;

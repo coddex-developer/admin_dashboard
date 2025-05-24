@@ -1,0 +1,19 @@
+.containerCategory {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    padding: 39px 0;
+}
+
+.cardCategory {
+    width: 350px;
+    background-color: f1f1f1;
+    border-radius: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.cardCategory .btnCategoryFunctios  {
+    border-radius: 30px;
+    padding: 10px;
+}
