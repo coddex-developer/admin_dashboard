@@ -48,3 +48,7 @@
     background-color: rgb(238, 73, 73);
     color: white;
 }
+
+.card-text-info {
+    white-space: pre-wrap;
+}

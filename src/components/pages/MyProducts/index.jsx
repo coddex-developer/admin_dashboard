@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import MessageError from "../../alerts/MessageError";
 import HandleSearch from "../../Tools/HandleSearch";
 import urlServer from "../../../../public/urlServer";
-import "./styles.min.css";
+//import "./styles.min.css";
 
 export default function MyProducts() {
     const { id } = useParams();
@@ -93,36 +93,57 @@ export default function MyProducts() {
                     allResponse={products}
                 />
                 <h1 className="text-center mb-4 fw-bold text-primary">Meus Produtos</h1>
-                <div className="containerCards">
-                    {filtered.length > 0 ? (filtered.map((product) => (
-                        <div className="cardsProducts" key={product.id}>
-                            <div className="card">
-                                <img src={product.imagem} className="card-img-top" alt={product.nome} />
-                                <div className="card-body">
-                                    <h5
-                                        className="card-title text-center fs-5 mb-4"
-                                        dangerouslySetInnerHTML={{ __html: highlight(product.nome) }}
-                                    />
-                                    <p className="card-text">R$ {product.preco}</p>
-                                    <p className="card-text">Categoria: {product.categoria}</p>
-                                    <p className="card-text">{product.informacao}</p>
-                                    <div className="containerBtn">
+                <div className="container-fluid">
+
+                    <table class="w-100 table table-striped table-hover">
+                        <thead>
+                            <tr className="table-dark">
+                                <th scope="col">#Categoria</th>
+                                <th scope="col">Nome</th>
+                                <th scope="col">Preço</th>
+                                <th scope="col">Estoque</th>
+                                <th scope="col">Ajustes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {filtered.length > 0 ? (filtered.map((product) => (
+                                <tr>
+                                    <td>
+                                        {product.categoria}
+                                    </td>
+                                    <td>
+                                        {product.nome}
+                                    </td>
+                                    <td>
+                                        {product.preco}
+                                    </td>
+                                    <td className="text-info">
+                                        em breve
+                                    </td>
+                                    <td className="d-flex gap-1">
                                         <Link to={`/dashboard/view_categories/${id}/${product.id}`}>
-                                            <button className="btn btn-primary">Editar</button>
+                                            <button style={{ width: "30px", height: "30px" }} className="btn d-flex justify-content-center p-0 align-items-center fs-6 btn-primary">
+                                                <i class="bi bi-pen"></i>
+                                            </button>
                                         </Link>
-                                        <button onClick={() => deleteProduct(product.id)} className="btn btn-danger">Excluir</button>
-                                    </div>
+
+                                        <button onClick={() => deleteProduct(product.id)} style={{ width: "30px", height: "30px" }} className="btn d-flex justify-content-center p-0 align-items-center fs-6 btn-danger">
+                                            <i className="bi bi-trash3"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+
+                            ))
+
+                            ) : (
+                                <div className="col-12 text-center">
+                                    <p className="text-muted">Nenhum produto encontrado!</p>
                                 </div>
-                            </div>
-                        </div>
-                    ))
-                    ) : (
-                        <div className="col-12 text-center">
-                            <p className="text-muted">Nenhum produto encontrado.</p>
-                        </div>
-                    )}
+                            )}
+                        </tbody>
+                    </table>
                 </div>
-            </div>
+            </div >
         </>
     );
 }

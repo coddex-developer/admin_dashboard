@@ -34,7 +34,7 @@ function HandleSearch({ searchTerm, setSearchTerm, allResponse, setFiltered }) {
                         <input
                             type="text"
                             className="form-control"
-                            placeholder="Pesquisar categoria..."
+                            placeholder="Pesquisr por nome..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                             onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
